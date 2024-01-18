@@ -1,0 +1,46 @@
+server.port: 8080
+spring.application.name: gateway-service
+eureka.client.serviceUrl.defaultZone: http://localhost:8761/eureka/
+
+spring:
+  cloud:
+    gateway:
+      mvc:
+        routes: #configuraciones para el articulo
+          - id: article-service
+            uri: http://localhost:4062
+            #uri: lb://author-service
+            predicates:
+              - Path=/api/v1/article/**
+              - Method=GET, POST, OPTIONS, DELETE, PUT
+              - After=2024-02-05T21:37:00.000-05:00
+            filters:
+              - AddResponseHeader=JavaMicro, Examen2024
+              - StripPrefix=2
+
+            #configuraciones para el pais
+          - id: country-service
+            uri: http://localhost:4063
+            #uri: lb://author-service
+            predicates:
+              - Path=/api/v1/country/**
+              - Method=GET, POST, OPTIONS, DELETE, PUT
+              #- Between=2024-01-19T02:45:00.000-05:00, 2024-02-17T19:31:00.000-05:00
+            filters:
+              - StripPrefix=2
+              - RemoveRequestHeader=X-My-Header
+              - AddResponseHeader=X-My-Header, 17012024
+
+            #configuraciones para el precio
+          - id: price-service
+            uri: http://localhost:4061
+            #uri: lb://author-service
+            predicates:
+              - Path=/api/v1/price/**
+              #- Cookie=Examen, 2024    #lo deje comentado para que muestre normal el price-service
+              - Method=GET, POST, OPTIONS, DELETE, PUT
+              #- Before=2024-01-02T07:45:00.000-05:00
+            filters:
+              - StripPrefix=2
+
+

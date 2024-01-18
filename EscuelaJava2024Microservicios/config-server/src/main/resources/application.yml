@@ -1,0 +1,11 @@
+server.port: 8888
+spring.application.name: config-server
+eureka.client.serviceUrl.defaultZone: http://localhost:8761/eureka/
+
+spring:
+  cloud.config.server.git:
+    #uri: file://C:\DEV\MICROSERVICIOS_COMPLETO FUNC\microservicios-config-2024
+    uri: https://github.com/leodan12/microservicios-config-2024
+    username: leodan12
+    password: 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
+    default-label: master

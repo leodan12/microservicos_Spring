@@ -1,0 +1,458 @@
+openapi: 3.0.3
+info:
+  title: Escuela de Java y Spring Boot
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080
+tags:
+  - name: author
+    description: Servicios CRUD de los autores
+  - name: book
+    description: Servicios CRUD de libros
+  - name: bookStore
+    description: Servicios CRUD de bookStore
+paths:
+  /api/v1/author:
+    get:
+      tags:
+        - author
+      summary: Obtención de todos los autores
+      description: Obtención de todos los autores
+      operationId: getAuthors
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuthorDto'
+    post:
+      tags:
+        - author
+      summary: Inserción de un autor a la base de datos
+      description: Inserción de un autor a la base de datos
+      operationId: postAuthor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorRequestDto'
+      responses:
+        '204':
+          description: Se ha insertado correctamente
+  /api/v1/author/{id}:
+    get:
+      tags:
+        - author
+      summary: Obtener un autor
+      description: Obtener un autor
+      operationId: getAuthor
+      parameters:
+        - name: id
+          description: Id del autor
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthorDto'
+    put:
+      tags:
+        - author
+      summary: Update de un autor
+      description: Update de un autor
+      operationId: putAuthor
+      parameters:
+        - name: id
+          description: Id del autor
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorRequestDto'
+      responses:
+        '204':
+          description: Se ha modificado correctamente
+    delete:
+      tags:
+        - author
+      summary: Eliminación de un autor en la base de datos
+      description: Eliminación de un autor en la base de datos
+      operationId: deleteUser
+      parameters:
+        - name: id
+          description: Id del autor
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Se ha modificado correctamente
+  /api/v1/author/exists/{id}:
+    get:
+      tags:
+        - author
+      summary: Verifica si existe o no, un autor
+      description: Verifica si existe o no, un autor
+      operationId: existAuthor
+      parameters:
+        - name: id
+          description: Id del autor
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: boolean
+  /api/v1/book:
+    get:
+      tags:
+        - book
+      summary: Obtención de todos los libros
+      description: Obtención de todos los libros
+      operationId: getBooks
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookDto'
+    post:
+      tags:
+        - book
+      summary: Inserción de un libro a la base de datos
+      description: Inserción de un libro a la base de datos
+      operationId: postBook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRequestDto'
+      responses:
+        '204':
+          description: Se ha insertado correctamente
+  /api/v1/book/{id}:
+    get:
+      tags:
+        - book
+      summary: Obtener un libro
+      description: Obtener un libro
+      operationId: getBook
+      parameters:
+        - name: id
+          description: Id del libro
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookDto'
+    put:
+      tags:
+        - book
+      summary: Update de un libro
+      description: Update de un libro
+      operationId: putBook
+      parameters:
+        - name: id
+          description: Id del libro
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRequestDto'
+      responses:
+        '204':
+          description: Se ha modificado correctamente
+    delete:
+      tags:
+        - book
+      summary: Eliminación de un libro en la base de datos
+      description: Eliminación de un libro en la base de datos
+      operationId: deleteBook
+      parameters:
+        - name: id
+          description: Id del libro
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Se ha modificado correctamente
+  /api/v1/book/by-author/{idAuthor}:
+    get:
+      tags:
+        - book
+      summary: Obtención de todos los libros por autor
+      description: Obtención de todos los libros por autor
+      operationId: getBooksByAuthor
+      parameters:
+        - name: idAuthor
+          description: Id del autor
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookDto'
+  /api/v1/book-store:
+    get:
+      tags:
+        - bookStore
+      summary: Obtención de todas las librerías
+      description: Obtención de todas las librerías
+      operationId: getBookStores
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookStoreDto'
+    post:
+      tags:
+        - bookStore
+      summary: Inserción de una librería a la base de datos
+      description: Inserción de una librería a la base de datos
+      operationId: postBookStore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookStoreRequestDto'
+      responses:
+        '204':
+          description: Se ha insertado correctamente
+  /api/v1/book-store/{id}:
+    get:
+      tags:
+        - bookStore
+      summary: Obtener una librería
+      description: Obtener una librería
+      operationId: getBookStore
+      parameters:
+        - name: id
+          description: Id de la librería
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookStoreDto'
+    put:
+      tags:
+        - bookStore
+      summary: Update de una librería
+      description: Update de una librería
+      operationId: putBookStore
+      parameters:
+        - name: id
+          description: Id de la librería
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookStoreRequestDto'
+      responses:
+        '204':
+          description: Se ha modificado correctamente
+    delete:
+      tags:
+        - bookStore
+      summary: Eliminación de una librería en la base de datos
+      description: Eliminación de una librería en la base de datos
+      operationId: deleteBookStore
+      parameters:
+        - name: id
+          description: Id de la librería
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Se ha modificado correctamente
+  /api/v1/book-store/{id}/book:
+    post:
+      tags:
+        - bookStore
+      summary: Inserción de un libro dentro de una librería en la base de datos
+      description: Inserción de un libro dentro de una librería en la base de datos
+      operationId: postBookStoreBook
+      parameters:
+        - name: id
+          description: Id de la librería
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookStoreBookRequestDto'
+      responses:
+        '204':
+          description: Se ha insertado correctamente
+    get:
+      tags:
+        - bookStore
+      summary: Obtención de todos los libros en una librería
+      description: Obtención de todos los libros en una librería
+      operationId: getBookStoreBooks
+      parameters:
+        - name: id
+          description: Id de la librería
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookStoreBookDto'
+components:
+  schemas:
+    AuthorRequestDto:
+      type: object
+      properties:
+        nombre:
+          type: string
+          example: Cesar Vallejo
+        anoNacimiento:
+          type: integer
+          example: 1892
+    AuthorDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nombre:
+          type: string
+          example: Cesar Vallejo
+        anoNacimiento:
+          type: integer
+          example: 1892
+    BookRequestDto:
+      type: object
+      properties:
+        nombre:
+          type: string
+          example: Trilce
+        anoPublicacion:
+          type: integer
+          example: 1922
+        idAutor:
+          type: integer
+          example: 1
+    BookDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nombre:
+          type: string
+          example: Trilce
+        anoPublicacion:
+          type: integer
+          example: 1922
+        idAutor:
+          type: integer
+          example: 1
+    BookStoreRequestDto:
+      type: object
+      properties:
+        nombre:
+          type: string
+          example: Bazar la locura
+        direccion:
+          type: string
+          example: Av. Plaza Norte N° 551
+    BookStoreDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nombre:
+          type: string
+          example: Bazar la locura
+        direccion:
+          type: string
+          example: Av. Plaza Norte N° 551
+    BookStoreBookRequestDto:
+      type: object
+      properties:
+        idLibro:
+          type: integer
+          example: 1
+        precio:
+          type: number
+          example: 23.99
+    BookStoreBookDto:
+      type: object
+      properties:
+        idLibro:
+          type: integer
+          example: 1
+        precio:
+          type: number
+          example: 23.99

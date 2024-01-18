@@ -1,0 +1,34 @@
+Create database escuela_java_2024;
+
+use escuela_java_2024;
+
+create table autor(
+ id int primary key auto_increment,
+ nombre varchar(100),
+ ano_nacimiento int
+ );
+
+
+create table libro(
+ id int primary key auto_increment,
+ nombre varchar(100),
+ ano_publicacion int,
+ autor_id int,
+ constraint fk_libro_autor foreign key (autor_id) references autor(id)
+ );
+
+
+create table libreria (
+ id int primary key auto_increment,
+ nombre_bazar varchar(100),
+ direccion varchar(100)
+);
+
+create table libreria_libro(
+id int primary key auto_increment,
+libro_id int,
+libreria_id int,
+precio decimal(10,10),
+ constraint fk_libreria_libro_libro foreign key (libro_id) references libro(id),
+ constraint fk_libreria_libro_libreria foreign key (libreria_id) references libreria(id)
+);

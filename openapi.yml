@@ -1,0 +1,440 @@
+openapi: 3.0.3
+info:
+  title: Segundo examen de la escuela de Java y Spring Boot
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080
+tags:
+  - name: article
+    description: Servicios CRUD de los articulos
+  - name: country
+    description: Servicios CRUD de países
+  - name: price
+    description: Servicios CRUD de precios
+paths:
+  /api/v1/article:
+    get:
+      tags:
+        - article
+      summary: Obtención de todos los artículos
+      description: Obtención de todos los artículos
+      operationId: getArticles
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ArticleDto'
+    post:
+      tags:
+        - article
+      summary: Inserción de un artículo a la base de datos
+      description: Inserción de un artículo a la base de datos
+      operationId: postArticle
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArticleRequestDto'
+      responses:
+        '204':
+          description: Se ha insertado correctamente
+  /api/v1/article/{id}:
+    get:
+      tags:
+        - article
+      summary: Obtener un artículo
+      description: Obtener un artículo
+      operationId: getArticle
+      parameters:
+        - name: id
+          description: Id del artículo
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleDto'
+    put:
+      tags:
+        - article
+      summary: Update de un artículo
+      description: Update de un artículo
+      operationId: putArticle
+      parameters:
+        - name: id
+          description: Id del artículo
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArticleRequestDto'
+      responses:
+        '204':
+          description: Se ha modificado correctamente
+    delete:
+      tags:
+        - article
+      summary: Eliminación de un artículo en la base de datos
+      description: Eliminación de un artículo en la base de datos
+      operationId: deleteArticle
+      parameters:
+        - name: id
+          description: Id del artículo
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Se ha eliminado correctamente
+  /api/v1/article/exists/{id}:
+    get:
+      tags:
+        - article
+      summary: Verifica si existe o no, un artículo
+      description: Verifica si existe o no, un artículo
+      operationId: existArticle
+      parameters:
+        - name: id
+          description: Id del artículo
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: boolean
+  /api/v1/country:
+    get:
+      tags:
+        - country
+      summary: Obtención de todos los países en los que están registrados para venta
+      description: Obtención de todos los países en los que están registrados para venta
+      operationId: getCountries
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CountryDto'
+    post:
+      tags:
+        - country
+      summary: Inserción de un país que está registrado para la venta
+      description: Inserción de un país que está registrado para la venta
+      operationId: postCountry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CountryRequestDto'
+      responses:
+        '204':
+          description: Se ha insertado correctamente
+  /api/v1/country/{id}:
+    get:
+      tags:
+        - country
+      summary: Obtener un país registrado para la venta
+      description: Obtener un país registrado para la venta
+      operationId: getCountry
+      parameters:
+        - name: id
+          description: Id del país registrado para la venta
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountryDto'
+    put:
+      tags:
+        - country
+      summary: Update de un país registrado para la venta
+      description: Update de un país registrado para la venta
+      operationId: putBook
+      parameters:
+        - name: id
+          description: Id del país registrado para la venta
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CountryRequestDto'
+      responses:
+        '204':
+          description: Se ha modificado correctamente
+    delete:
+      tags:
+        - country
+      summary: Eliminación de un país registrado para la venta
+      description: Eliminación de un país registrado para la venta
+      operationId: deleteBook
+      parameters:
+        - name: id
+          description: Id del país registrado para la venta
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Se ha eliminado correctamente
+  /api/v1/country/exists/{id}:
+    get:
+      tags:
+        - country
+      summary: Verifica si existe o no, un país registrado para la venta
+      description: Verifica si existe o no, un país registrado para la venta
+      operationId: existCountry
+      parameters:
+        - name: id
+          description: Id del país registrado para la venta
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: boolean
+  /api/v1/price:
+    get:
+      tags:
+        - price
+      summary: Obtención de todos los precios
+      description: Obtención de todos los precios
+      operationId: getPrices
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PriceDto'
+    post:
+      tags:
+        - price
+      summary: Inserción del precio de un artículo y país
+      description: Inserción del precio de un artículo y país
+      operationId: postPrice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PriceRequestDto'
+      responses:
+        '204':
+          description: Se ha insertado correctamente
+  /api/v1/price/{id}:
+    get:
+      tags:
+        - price
+      summary: Obtener el precio según el id del precio
+      description: Obtener el precio según el id del precio
+      operationId: getPrice
+      parameters:
+        - name: id
+          description: Id del precio
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceDto'
+    put:
+      tags:
+        - price
+      summary: Update del precio según el id del precio
+      description: Update del precio según el id del precio
+      operationId: putPrice
+      parameters:
+        - name: id
+          description: Id del precio
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PriceRequestDto'
+      responses:
+        '204':
+          description: Se ha modificado correctamente
+    delete:
+      tags:
+        - price
+      summary: Eliminación del precio según el id del precio
+      description: Eliminación del precio según el id del precio
+      operationId: deletePrice
+      parameters:
+        - name: id
+          description: Id de la librería
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Se ha modificado correctamente
+  /api/v1/price/article/{articleId}:
+    get:
+      tags:
+        - price
+      summary: Obtención de todos los precios por id de artículo
+      description: Obtención de todos los precios por id de artículo
+      operationId: getPricesByArticleId
+      parameters:
+        - name: articleId
+          description: Id del artículo
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PriceDto'
+  /api/v1/price/country/{countryId}:
+    get:
+      tags:
+        - price
+      summary: Obtención de todos los precios por id del país
+      description: Obtención de todos los precios por id del país
+      operationId: getPricesByCountryId
+      parameters:
+        - name: countryId
+          description: Id del país
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PriceDto'
+components:
+  schemas:
+    ArticleRequestDto:
+      type: object
+      properties:
+        nombre:
+          type: string
+          example: "Camisa manga larga"
+        color:
+          type: string
+          example: "Beige"
+    ArticleDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nombre:
+          type: string
+          example: "Camisa manga larga"
+        color:
+          type: string
+          example: "Beige"
+    CountryRequestDto:
+      type: object
+      properties:
+        nombre:
+          type: string
+          example: "Perú"
+        moneda:
+          type: string
+          example: "PEN"
+    CountryDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nombre:
+          type: string
+          example: "Perú"
+        moneda:
+          type: string
+          example: "PEN"
+    PriceRequestDto:
+      type: object
+      properties:
+        articuloId:
+          type: integer
+          example: 1
+        paisId:
+          type: integer
+          example: 1
+        valor:
+          type: number
+          example: 15.99
+    PriceDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        articuloId:
+          type: integer
+          example: 1
+        paisId:
+          type: integer
+          example: 1
+        valor:
+          type: number
+          example: 15.99

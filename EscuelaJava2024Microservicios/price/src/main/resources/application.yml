@@ -1,0 +1,9 @@
+spring.application.name: price-service
+
+spring:
+  profiles:
+    active: develop
+  config:
+    import: configserver:http://localhost:8888
+#spring.cloud.config.profile: <<profile>
+#spring.config.import: configserver:http://localhost:8888
