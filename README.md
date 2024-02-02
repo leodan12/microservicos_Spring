@@ -73,13 +73,5 @@
    - Quiero que se quite el header "X-My-Header" del Request.
    - Quiero que se agregue un header "X-My-Header" con el valor "17012024" del Response.
 
-## Branches de github:
 
-La rama debe ser creada a partir de develop.
-
-El nombre de las ramas debe ser escrito en minúsculas y con el siguiente formato:
-    feature/`<primer_apellido>`-`<segundo_apellido>`-`<primer_nombre>`
-
-Por ejemplo mi rama sería:
-    feature/delacruz-acosta-hans (El apellido tiene varias palabras pero sigue junto).
 
